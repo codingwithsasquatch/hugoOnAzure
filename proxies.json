@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "root":{
+            "matchCondition": {"route": "/"},
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/content/index.html"
+        },
+        "firstlevel": {
+            "matchCondition": {"route": "/{level1}/"},
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/content/{level1}/index.html"
+        },
+        "secondlevel": {
+            "matchCondition": {"route": "/{level1}/{level2}/"},
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/content/{level1}/{level2}/index.html"
+        },
+        "thirdlevel": {
+            "matchCondition": {"route": "/{level1}/{level2}/{level3}/"},
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/content/{level1}/{level2}/{level3}/index.html"
+        },
+        "fourthlevel": {
+            "matchCondition": {"route": "/{level1}/{level2}/{level3}/{level4}/"},
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/content/{level1}/{level2}/{level3}/{level4}/index.html"
+        },
+        "css": {
+            "matchCondition": {"route": "/css/main.css"},
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/content/css/main.css"
+        },
+        "rest": {
+            "matchCondition": {"route": "{*restOfPath}"},
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/content/{restOfPath}"
+        }
+    }
+}
