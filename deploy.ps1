@@ -1,4 +1,4 @@
-#copy the proxies.joson file into the right location
+#copy the proxies.json file into the right location
 Copy-Item proxies.json -Destination d:\home\site\wwwroot
 
 # Generates our blog to /public
