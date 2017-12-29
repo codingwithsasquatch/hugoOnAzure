@@ -103,23 +103,52 @@
                         {
                             "name": "WEBSITE_CONTENTSHARE",
                             "value": "[toLower(variables('functionAppName'))]"
+                        },
+                        {
+                            "name": "storageAccountName",
+                            "value": "[variables('storageAccountName')]"
                         }
                     ]
                 }
             },
             "resources": [{
-                "type": "sourcecontrols",
-                "name": "web",
-                "apiVersion": "2015-08-01",
-                "properties": {
-                    "RepoUrl": "[parameters('sourceCodeRepositoryURL')]",
-                    "branch": "[parameters('sourceCodeBranch')]",
-                    "IsManualIntegration": "[parameters('sourceCodeManualIntegration')]"
+                    "type": "sourcecontrols",
+                    "name": "web",
+                    "apiVersion": "2015-08-01",
+                    "properties": {
+                        "RepoUrl": "[parameters('sourceCodeRepositoryURL')]",
+                        "branch": "[parameters('sourceCodeBranch')]",
+                        "IsManualIntegration": "[parameters('sourceCodeManualIntegration')]"
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]"
+                    ]
                 },
-                "dependsOn": [
-                    "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]"
-                ]
-            }],
+                {
+                    "type": "function",
+                    "name": "keepalive",
+                    "apiVersion": "2015-08-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]"
+                    ],
+                    "properties": {
+                        "config": {
+                            "bindings": [{
+                                "schedule": "0 */4 * * * *",
+                                "name": "myTimer",
+                                "type": "timerTrigger",
+                                "direction": "in"
+                            }]
+                        },
+                        "files": {
+                            "run.csx": "public static void Run(TimerInfo myTimer, TraceWriter log) { log.Info($\"Keepalive executed at: {DateTime.Now}\" ); }"
+                        }
+
+                    }
+
+
+                }
+            ],
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.Web/serverfarms', parameters('appName'))]"

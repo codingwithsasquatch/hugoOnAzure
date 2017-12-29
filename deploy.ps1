@@ -1,3 +1,6 @@
+#copy the proxies.joson file into the right location
+Copy-Item proxies.json -Destination d:\home\site\wwwroot
+
 # Generates our blog to /public
 
 #create the temp dir if it doesn't already exist
@@ -8,7 +11,7 @@ if((Test-Path $tempPublicDir) -eq 0)
 }
 
 #run hugo to generate the site and output the files the the temp dir
-.\tools\hugo.exe -d $tempPublicDir
+.\tools\hugo.exe -d $tempPublicDir -s D:\home\site\repository
 
 # Connection string associated with the blob storage.
 $blobStorage = $env:AzureWebJobsStorage
@@ -20,7 +23,7 @@ $array = $blobStorage.Split(';')
 foreach($element in $array)
 {
   if($element.Contains('AccountName')) {
-    $accountKey = $element.Replace("AccountName=", "")
+    $accountName = $element.Replace("AccountName=", "")
   }  
   if($element.Contains('AccountKey')) {
       $accountKey = $element.Replace("AccountKey=", "")
