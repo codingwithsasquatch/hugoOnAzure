@@ -35,7 +35,7 @@
             }
         },
         "sourceCodeManualIntegration": {
-            "defaultValue": true,
+            "defaultValue": false,
             "allowedValues": [
                 true,
                 false
