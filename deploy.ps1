@@ -1,7 +1,7 @@
-#copy the proxies.json file into the right location
+#copy the host.json, proxies.json and keepalive function into the right locations
+Copy-Item host.json -Destination d:\home\site\wwwroot
 Copy-Item proxies.json -Destination d:\home\site\wwwroot
-
-# Generates our blog to /public
+Copy-Item keepalive -Destination d:\home\site\wwwroot -Recurse
 
 #create the temp dir if it doesn't already exist
 $tempPublicDir = "d:\local\temp\public"
@@ -34,6 +34,8 @@ foreach($element in $array)
 if($accountKey -ne "")
 {
   .\tools\AzCopy\AzCopy.exe /Source:$tempPublicDir /Dest:https://$accountName.blob.core.windows.net/public /DestKey:$accountKey /SetContentType /S /Y
+  $StorageContext = New-AzureStorageContext -StorageAccountName $accountName -StorageAccountKey $accountKey
+  Set-AzureStorageContainerAcl -Context $StorageContext -Container "public" -Permission Blob
 }
 else
 {
