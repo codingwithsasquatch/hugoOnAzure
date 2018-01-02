@@ -1,7 +1,5 @@
 #copy the host.json, proxies.json and keepalive function into the right locations
-Copy-Item host.json -Force -Destination d:\home\site\wwwroot
-Copy-Item proxies.json -Force -Destination d:\home\site\wwwroot
-Copy-Item keepalive -Force -Destination d:\home\site\wwwroot -Recurse
+Copy-Item functionSrc -Force -Destination d:\home\site\wwwroot -Recurse
 
 #create the temp dir if it doesn't already exist
 $tempPublicDir = "d:\local\temp\public"

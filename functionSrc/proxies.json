@@ -1,0 +1,13 @@
+{
+    "proxies": {
+        "files": {
+            "matchCondition": {
+                "route": "{*path}",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "backendUri": "https://%WEBSITE_HOSTNAME%/api/Static?file={path}"
+        }
+    }
+}
