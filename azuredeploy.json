@@ -153,7 +153,7 @@
             "resources": [
                 {
                     "name": "[variables('cdnEndpointName')]",
-                    "type": "Microsoft.Cdn/profiles/endpoints",
+                    "type": "endpoints",
                     "location": "[resourceGroup().location]",
                     "apiVersion": "2017-04-02",
                     "dependsOn": [
@@ -161,7 +161,7 @@
                         "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]"
                     ],
                     "properties": {
-                        "originHostHeader": "[reference(variables('functionAppName')).hostNames[0]]",
+                        "originHostHeader": "[reference(resourceId('Microsoft.Web/sites/', variables('functionAppName'))).hostNames[0]]",
                         "isHttpAllowed": true,
                         "isHttpsAllowed": true,
                         "queryStringCachingBehavior": "IgnoreQueryString",
@@ -177,7 +177,7 @@
                             {
                                 "name": "origin1",
                                 "properties": {
-                                    "hostName": "[reference(variables('functionAppName')).hostNames[0]]"
+                                    "hostName": "[reference(resourceId('Microsoft.Web/sites/', variables('functionAppName'))).hostNames[0]]"
                                 }
                             }
                         ]
