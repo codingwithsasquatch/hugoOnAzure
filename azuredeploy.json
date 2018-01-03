@@ -41,13 +41,23 @@
                 false
             ],
             "type": "bool"
+        },
+        "useCdn": {
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "type": "bool"
         }
     },
     "variables": {
         "functionAppName": "[parameters('appName')]",
         "appServicePlanName": "[parameters('appName')]",
         "hostingPlanName": "[parameters('appName')]",
-        "storageAccountName": "[concat(parameters('appName'), 'storage')]"
+        "storageAccountName": "[concat(parameters('appName'), 'storage')]",
+        "cdnProfileName": "[concat(parameters('appName'), 'CdnProfile')]",
+        "cdnEndpointName": "[concat(parameters('appName'), 'CdnEndpoint')]"
     },
     "resources": [{
             "type": "Microsoft.Storage/storageAccounts",
@@ -128,6 +138,51 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.Web/serverfarms', parameters('appName'))]"
+            ]
+        },
+        {
+            "condition": "[parameters('useCdn')]",
+            "name": "[variables('cdnProfileName')]",
+            "type": "Microsoft.Cdn/profiles",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2017-04-02",
+            "sku": {
+                "name": "Standard_Verizon"
+            },
+            "properties": {},
+            "resources": [
+                {
+                    "name": "[variables('cdnEndpointName')]",
+                    "type": "Microsoft.Cdn/profiles/endpoints",
+                    "location": "[resourceGroup().location]",
+                    "apiVersion": "2017-04-02",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Cdn/profiles', variables('cdnProfileName'))]",
+                        "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]"
+                    ],
+                    "properties": {
+                        "originHostHeader": "[reference(variables('functionAppName')).hostNames[0]]",
+                        "isHttpAllowed": true,
+                        "isHttpsAllowed": true,
+                        "queryStringCachingBehavior": "IgnoreQueryString",
+                        "contentTypesToCompress": [
+                            "text/plain",
+                            "text/html",
+                            "text/css",
+                            "application/x-javascript",
+                            "text/javascript"
+                        ],
+                        "isCompressionEnabled": true,
+                        "origins": [
+                            {
+                                "name": "origin1",
+                                "properties": {
+                                    "hostName": "[reference(variables('functionAppName')).hostNames[0]]"
+                                }
+                            }
+                        ]
+                    }
+                }
             ]
         }
     ]

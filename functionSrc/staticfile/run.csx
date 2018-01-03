@@ -1,13 +1,14 @@
+#r "Microsoft.WindowsAzure.Storage"
+
 using System.Net;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.IO;
-using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using MimeTypes;
 
-static string defaultPage = GetEnvironmentVariable("DefaultPage") ?? "index.htm";
+static string defaultPage = GetEnvironmentVariable("DefaultPage") ?? "index.html";
 static string root = GetEnvironmentVariable("Container") ?? "public";
 static string storageCn = GetEnvironmentVariable("AzureWebJobsStorage");
 
@@ -23,23 +24,24 @@ public async static Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageCn);
     CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
     CloudBlobContainer container = blobClient.GetContainerReference(root);
+
     var blob = container.GetBlockBlobReference(filePath);
     var exists = await blob.ExistsAsync();
-    //var exists = await container.Exists(filePath);
-    filePath = exists ? filePath : $"{filePath}/{defaultPage}";
 
+    filePath = exists ? filePath : $"{filePath}/{defaultPage}";
+    blob = container.GetBlockBlobReference(filePath);
+    
     var fileInfo = new FileInfo(filePath);
     var mimeType = MimeTypeMap.GetMimeType(fileInfo.Extension);
 
-    log.Info($"Serving: {filePath}; With MimeType: {mimeType}");
-
+    log.Info($"Serving: {filePath} - {blob.Uri.ToString()} with MimeType: {mimeType}");
     try
     {
         var response = new HttpResponseMessage(HttpStatusCode.OK);
         var stream = new MemoryStream();
 
-        await blob.DownloadToStream(stream);
-        //var stream = await container.Stream(filePath);
+        await blob.DownloadToStreamAsync(stream);
+        stream.Position = 0;
         response.Content = new StreamContent(stream);
         response.Content.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
         return response;

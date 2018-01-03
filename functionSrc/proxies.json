@@ -7,7 +7,7 @@
                     "GET"
                 ]
             },
-            "backendUri": "https://%WEBSITE_HOSTNAME%/api/Static?file={path}"
+            "backendUri": "https://%WEBSITE_HOSTNAME%/api/staticfile?file={path}"
         }
     }
 }
