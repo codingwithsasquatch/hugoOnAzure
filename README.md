@@ -6,3 +6,6 @@
 4. Anytime you do a push to your github repo hugo will regenerate the site in azure and update the changed files it.
 
 All for pennies a month.
+
+
+This is based on the work by Maxime Rouiller  in his blog post [here](https://blog.maximerouiller.com/post/go-go-hugo-blog-to-azure-storage/). I parameterized it up and packaged it up into an ARM template.
