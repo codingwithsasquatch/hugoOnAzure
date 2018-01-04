@@ -49,6 +49,9 @@
                 false
             ],
             "type": "bool"
+        },
+        "domainName": {
+            "type":"string"
         }
     },
     "variables": {
@@ -181,7 +184,20 @@
                                 }
                             }
                         ]
-                    }
+                    },
+                    "resources": [
+                        {
+                            "type": "customDomains",
+                            "apiVersion": "2017-04-02",
+                            "properties": {
+                                "hostName": "[parameters('domainName')]"
+                            },
+                            "dependsOn": [
+                                "[resourceId('Microsoft.Cdn/profiles/endpoints', variables('cdnProfileName'), variables('cdnEndpointName'))]"
+                            ]
+
+                        }
+                    ]
                 }
             ]
         }
