@@ -9,7 +9,7 @@ if((Test-Path $tempPublicDir) -eq 0)
 }
 
 #run hugo to generate the site and output the files the the temp dir
-.\tools\hugo.exe -d $tempPublicDir -s D:\home\site\repository
+.\tools\hugo.exe -d $tempPublicDir -s D:\home\site\repository\hugoRoot
 
 # Connection string associated with the blob storage.
 $blobStorage = $env:AzureWebJobsStorage
@@ -35,6 +35,14 @@ if($accountKey -ne "")
   $ProgressPreference="SilentlyContinue"
   $StorageContext = New-AzureStorageContext  -StorageAccountName $accountName -StorageAccountKey $accountKey
   Set-AzureStorageContainerAcl -Context $StorageContext -Container "public" -Permission Blob
+
+  #set TTL
+  $blobs = Get-AzureStorageBlob -Container "public" -Context $StorageContext
+  foreach ($blob in $blobs)
+  {
+    $blob.ICloudBlob.Properties.CacheControl = "max-age=3600"
+    $blob.ICloudBlob.SetProperties()
+  }
 }
 else
 {
