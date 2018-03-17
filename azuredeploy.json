@@ -57,7 +57,7 @@
         "hostingPlanName": "[parameters('appName')]",
         "storageAccountName": "[concat(parameters('appName'), 'storage')]",
         "cdnProfileName": "[concat(parameters('appName'), 'CdnProfile')]",
-        "cdnEndpointName": "[concat(parameters('appName'), 'CdnEndpoint')]"
+        "cdnEndpointName": "[parameters('appName')]"
     },
     "resources": [{
             "type": "Microsoft.Storage/storageAccounts",

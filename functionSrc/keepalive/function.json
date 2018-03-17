@@ -4,7 +4,7 @@
         "type": "timerTrigger",
         "name": "keepaliveTimer",
         "direction": "in",
-        "schedule": "0 */5 * * * *",
+        "schedule": "0 */10 * * * *",
         "runOnStartup": true
       }
     ]

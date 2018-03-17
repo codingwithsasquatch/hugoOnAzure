@@ -6,36 +6,455 @@
                 "route": "/"
             },
             "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/index.html"
+        },"favicon": {
+            "matchCondition": {
+                "route": "/favicon.ico"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/favicon.ico"
         },
-        "firstlevel": {
+        "level1": {
             "matchCondition": {
                 "route": "/{level1}/"
             },
             "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/index.html"
         },
-        "secondlevel": {
+        "level2": {
             "matchCondition": {
                 "route": "/{level1}/{level2}/"
             },
             "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/index.html"
         },
-        "thirdlevel": {
+        "level3": {
             "matchCondition": {
                 "route": "/{level1}/{level2}/{level3}/"
             },
             "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/index.html"
         },
-        "fourthlevel": {
+        "level4": {
             "matchCondition": {
                 "route": "/{level1}/{level2}/{level3}/{level4}/"
             },
             "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/index.html"
         },
-        "rest": {
+        "rootHtml": {
             "matchCondition": {
-                "route": "{*restOfPath}"
+                "route": "/{name}.html"
             },
-            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{restOfPath}"
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.html"
+        },
+        "rootCss": {
+            "matchCondition": {
+                "route": "/{name}.css"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.css"
+        },
+        "rootJs": {
+            "matchCondition": {
+                "route": "/{name}.js"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.js"
+        },
+        "rootPng": {
+            "matchCondition": {
+                "route": "/{name}.png"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.png"
+        },
+        "rootGif": {
+            "matchCondition": {
+                "route": "/{name}.gif"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.gif"
+        },
+        "rootJpg": {
+            "matchCondition": {
+                "route": "/{name}.jpg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.jpg"
+        },
+        "rootSvg": {
+            "matchCondition": {
+                "route": "/{name}.svg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.svg"
+        },
+        "rootMmp3": {
+            "matchCondition": {
+                "route": "/{name}.mp3"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.mp3"
+        },
+        "rootMp4": {
+            "matchCondition": {
+                "route": "/{name}.mp4"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.mp4"
+        },
+        "rootMpeg": {
+            "matchCondition": {
+                "route": "/{name}.mpeg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.mpeg"
+        },
+        "rootTtf": {
+            "matchCondition": {
+                "route": "/{name}.ttf"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.ttf"
+        },
+        "rootwoff": {
+            "matchCondition": {
+                "route": "/{name}.woff"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.woff"
+        },
+        "rootWoff2": {
+            "matchCondition": {
+                "route": "/{name}.woff2"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.woff2"
+        },
+        "rootMd": {
+            "matchCondition": {
+                "route": "/{name}.md"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{name}.md"
+        },
+        "level1Html": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.html"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.html"
+        },
+        "level1Css": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.css"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.css"
+        },
+        "level1Js": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.js"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.js"
+        },
+        "level1Png": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.png"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.png"
+        },
+        "level1Gif": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.gif"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.gif"
+        },
+        "level1Jpg": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.jpg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.jpg"
+        },
+        "level1Svg": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.svg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.svg"
+        },
+        "level1Mmp3": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.mp3"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.mp3"
+        },
+        "level1Mp4": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.mp4"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.mp4"
+        },
+        "level1Mpeg": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.mpeg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.mpeg"
+        },
+        "level1Ttf": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.ttf"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.ttf"
+        },
+        "level1woff": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.woff"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.woff"
+        },
+        "level1Woff2": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.woff2"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.woff2"
+        },
+        "level1Md": {
+            "matchCondition": {
+                "route": "/{level1}/{name}.md"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{name}.md"
+        },
+        "level2Html": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.html"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.html"
+        },
+        "level2Css": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.css"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.css"
+        },
+        "level2Js": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.js"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.js"
+        },
+        "level2Png": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.png"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.png"
+        },
+        "level2Gif": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.gif"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.gif"
+        },
+        "level2Jpg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.jpg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.jpg"
+        },
+        "level2Svg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.svg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.svg"
+        },
+        "level2Mmp3": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.mp3"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.mp3"
+        },
+        "level2Mp4": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.mp4"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.mp4"
+        },
+        "level2Mpeg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.mpeg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.mpeg"
+        },
+        "level2Ttf": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.ttf"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.ttf"
+        },
+        "level2woff": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.woff"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.woff"
+        },
+        "level2Woff2": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.woff2"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.woff2"
+        },
+        "level2Md": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{name}.md"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{name}.md"
+        },
+        "level3Html": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.html"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.html"
+        },
+        "level3Css": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.css"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.css"
+        },
+        "level3Js": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.js"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.js"
+        },
+        "level3Png": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.png"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.png"
+        },
+        "level3Gif": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.gif"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.gif"
+        },
+        "level3Jpg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.jpg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.jpg"
+        },
+        "level3Svg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.svg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.svg"
+        },
+        "level3Mmp3": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.mp3"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.mp3"
+        },
+        "level3Mp4": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.mp4"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.mp4"
+        },
+        "level3Mpeg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.mpeg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.mpeg"
+        },
+        "level3Ttf": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.ttf"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.ttf"
+        },
+        "level3woff": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.woff"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.woff"
+        },
+        "level3Woff2": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.woff2"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.woff2"
+        },
+        "level3Md": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{name}.md"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{name}.md"
+        },
+        "level4Html": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.html"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.html"
+        },
+        "level4Css": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.css"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.css"
+        },
+        "level4Js": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.js"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.js"
+        },
+        "level4Png": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.png"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.png"
+        },
+        "level4Gif": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.gif"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.gif"
+        },
+        "level4Jpg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.jpg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.jpg"
+        },
+        "level4Svg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.svg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.svg"
+        },
+        "level4Mmp3": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.mp3"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.mp3"
+        },
+        "level4Mp4": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.mp4"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.mp4"
+        },
+        "level4Mpeg": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.mpeg"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.mpeg"
+        },
+        "level4Ttf": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.ttf"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.ttf"
+        },
+        "level4woff": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.woff"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.woff"
+        },
+        "level4Woff2": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.woff2"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.woff2"
+        },
+        "level4Md": {
+            "matchCondition": {
+                "route": "/{level1}/{level2}/{level3}/{level4}/{name}.md"
+            },
+            "backendUri": "https://%storageAccountName%.blob.core.windows.net/public/{level1}/{level2}/{level3}/{level4}/{name}.md"
         }
     }
 }
