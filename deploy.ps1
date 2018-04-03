@@ -1,5 +1,8 @@
-#copy the host.json, proxies.json and keepalive function into the right locations
-Copy-Item functionSrc\* -Force -Destination d:\home\site\wwwroot -Recurse
+#set up constants
+$dirDepth = 4
+$containerName = "public"
+$baseStorageUri = 'https://%storageAccountName%.blob.core.windows.net/'+$containerName
+$ttl = 3600
 
 #create the temp dir if it doesn't already exist
 $tempPublicDir = "d:\local\temp\public"
@@ -10,6 +13,53 @@ if((Test-Path $tempPublicDir) -eq 0)
 
 #run hugo to generate the site and output the files the the temp dir
 .\tools\hugo.exe -d $tempPublicDir -s D:\home\site\repository\hugoRoot
+
+# automatically generate the proxies.json file
+$rootFileList = Get-ChildItem -File $tempPublicDir
+$extList = Get-ChildItem -File -Recurse $tempPublicDir | Select-Object Extension | Sort-Object Extension | Get-Unique -asString
+
+$objProxiesJson = @{}
+$proxiesList = @{}
+
+# iterate thru the root filenames
+foreach ($file in $rootFileList.Name.Where{$_ -ne '.keep'}) {
+  $proxiesList."root$file" = @{
+      matchCondition = @{
+          route = "/$file"
+          }
+      backendUri = "$baseStorageUri$route"
+  }
+
+}
+
+# iterate thru directory depth and add file types
+For ($i=1; $i -le $dirDepth; $i++)
+{
+  $path = ""
+  For ($d=1; $d -le $i; $d++){
+    $path += "/{level$d}"
+  }
+  $path += "/"
+
+  foreach ($ext in $extList.Extension.Where{$_ -ne '.keep'}) {
+    $proxiesList."level$i$ext" = @{
+        matchCondition = @{
+            route = "$path{name}$ext"
+            }
+        backendUri = "$baseStorageUri$route"
+    }
+  }
+}
+
+$objProxiesJson = @{
+    '$schema' = "http://json.schemastore.org/proxies"
+    proxies = $proxiesList
+}
+
+convertto-json -InputObject $objProxiesJson -Depth 5| Out-File d:\home\site\wwwroot\proxies.json
+
+#copy the host.json, proxies.json and keepalive function into the right locations
+Copy-Item functionSrc\* -Force -Destination d:\home\site\wwwroot -Recurse
 
 # Connection string associated with the blob storage.
 $blobStorage = $env:AzureWebJobsStorage
@@ -40,7 +90,7 @@ if($accountKey -ne "")
   $blobs = Get-AzureStorageBlob -Container "public" -Context $StorageContext
   foreach ($blob in $blobs)
   {
-    $blob.ICloudBlob.Properties.CacheControl = "max-age=3600"
+    $blob.ICloudBlob.Properties.CacheControl = "max-age=$ttl"
     $blob.ICloudBlob.SetProperties()
   }
 }
