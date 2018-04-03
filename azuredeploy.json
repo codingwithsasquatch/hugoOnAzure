@@ -152,6 +152,7 @@
             "properties": {},
             "resources": [
                 {
+                    "condition": "[parameters('useCdn')]",
                     "name": "[variables('cdnEndpointName')]",
                     "type": "endpoints",
                     "location": "[resourceGroup().location]",

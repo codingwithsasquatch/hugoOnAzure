@@ -21,13 +21,21 @@ $extList = Get-ChildItem -File -Recurse $tempPublicDir | Select-Object Extension
 $objProxiesJson = @{}
 $proxiesList = @{}
 
+# default root document
+$proxiesList."rootDefault" = @{
+  matchCondition = @{
+      route = "/"
+      }
+  backendUri = "$baseStorageUri/index.html"
+}
+
 # iterate thru the root filenames
 foreach ($file in $rootFileList.Name.Where{$_ -ne '.keep'}) {
   $proxiesList."root$file" = @{
       matchCondition = @{
           route = "/$file"
           }
-      backendUri = "$baseStorageUri$route"
+      backendUri = "$baseStorageUri/$file"
   }
 
 }
@@ -41,12 +49,21 @@ For ($i=1; $i -le $dirDepth; $i++)
   }
   $path += "/"
 
+  # default document
+  $proxiesList."level$iDefault" = @{
+    matchCondition = @{
+        route = "$path/"
+        }
+    backendUri = "$baseStorageUri$path/index.html"
+  }
+
+  # and the rest of the document types
   foreach ($ext in $extList.Extension.Where{$_ -ne '.keep'}) {
     $proxiesList."level$i$ext" = @{
         matchCondition = @{
             route = "$path{name}$ext"
             }
-        backendUri = "$baseStorageUri$route"
+        backendUri = "$baseStorageUri$path{name}$ext"
     }
   }
 }
