@@ -3,6 +3,7 @@ $dirDepth = 4
 $containerName = "public"
 $baseStorageUri = 'https://%storageAccountName%.blob.core.windows.net/'+$containerName
 $ttl = 3600
+$defaultDoc = "index.html"
 
 #create the temp dir if it doesn't already exist
 $tempPublicDir = "d:\local\temp\public"
@@ -22,11 +23,11 @@ $objProxiesJson = @{}
 $proxiesList = @{}
 
 # default root document
-$proxiesList."rootDefault" = @{
+$proxiesList."defaultRoot" = @{
   matchCondition = @{
       route = "/"
       }
-  backendUri = "$baseStorageUri/index.html"
+  backendUri = "$baseStorageUri/$defaultDoc"
 }
 
 # iterate thru the root filenames
@@ -49,12 +50,12 @@ For ($i=1; $i -le $dirDepth; $i++)
   }
   $path += "/"
 
-  # default document
-  $proxiesList."level$iDefault" = @{
+  # default document for each level
+  $proxiesList."defaultLevel$i" = @{
     matchCondition = @{
-        route = "$path/"
+        route = "$path"
         }
-    backendUri = "$baseStorageUri$path/index.html"
+    backendUri = "$baseStorageUri$path$defaultDoc"
   }
 
   # and the rest of the document types
